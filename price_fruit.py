@@ -4,19 +4,29 @@ fruit_prices = {
     "orange" : 0.25
 }
 
-# scanning fruit
-fruit = input("Enter the fruit you bought in a comma separated list: ")
+def price_fruit(fruit_list):
+    """Given a list of fruit, returns the total price"""
 
-fruit_list = fruit.lower().split(',')
+    total = float(0.00)
+    for fruit in fruit_list:
+        fruit = fruit.lower()
+        try:
+            price = fruit_prices[fruit]
+            print (fruit+" $"+str(price))
+            total += price
+        except KeyError as e:
+            print (fruit+" is not offered at store.")
+    return float("%.02f"%total)
 
-# calculate total
-total = float(0.00)
-for f in fruit_list:
-    try:
-        price = float(fruit_prices[f])
-        print (f+" $"+str(price))
-        total += price
-    except KeyError as e:
-        print (f+" is not offered at store.")
 
-print ("Total: $"+str(total))
+def main():
+    fruits = input("Enter the fruit you bought in a comma separated list: ")
+    fruit_list = fruits.split(',')
+
+    total = price_fruit(fruit_list)
+
+    print ("Total: $%.02f"%total)
+
+
+if __name__ == '__main__':
+    main()
